@@ -27,6 +27,8 @@ router.route('/bears')
 .post(function (req, res){
     var bear = new Bear();
     bear.name= req.body.name;
+    bear.quantity= req.body.quantity;
+    bear.price=req.body.price;
     
     bear.save (function(err){
     if (err)
@@ -66,6 +68,8 @@ router.route('/bears/:bear_id')
                 res.send(err);
 
             bear.name = req.body.name;  // update the bears info
+            bear.quantity= req.body.quantity;
+            bear.price=req.body.price;
 
             // save the bear
             bear.save(function(err) {
