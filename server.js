@@ -1,11 +1,9 @@
-
-// call the packages we need
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mangoose = require('mongoose');
-mangoose.connect('mongodb://localhost:27017/bears');
-var Bear = require ('./data/bear');
+mangoose.connect('mongodb://localhost:27017/phones');
+var Phone = require ('./data/phone');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,70 +20,75 @@ router.use(function(req,res, next){
     next();
 });
 
-router.route('/bears')
+router.route('/phones')
 
 .post(function (req, res){
-    var bear = new Bear();
-    bear.name= req.body.name;
-    bear.quantity= req.body.quantity;
-    bear.price=req.body.price;
+    var phone = new Phone();
+    console.log("HTML POST FUNCTIONING111111");
+    phone.name= req.body.name;
+    phone.quantity= req.body.quantity;
+    phone.price=req.body.price;
+    phone.tax= req.body.tax;
+    console.log("HTML POST FUNCTIONING2");
     
-    bear.save (function(err){
+    phone.save (function(err){
     if (err)
     res.send(err);
     
-    res.json({message: 'Bear created'});
+    res.json({message: 'phone created'});
     
     });
 })
 
 
 .get(function (req,res){
-    Bear.find(function(err, bears){
+    console.log("GET FUNCTION ");
+    Phone.find(function(err, phones){
         if (err)
         res.send(err);
         
-        res.json(bears);
+        res.json(phones);
     });
 });
 
-router.route('/bears/:bear_id')
+router.route('/phones/:phone_id')
 
  .get(function(req, res) {
-        Bear.findById(req.params.bear_id, function(err, bear) {
+        Phone.findById(req.params.phone_id, function(err, phone) {
             if (err)
                 res.send(err);
-            res.json(bear);
+            res.json(phone);
         });
     })
     
     .put(function(req, res) {
 
-        // use our bear model to find the bear we want
-        Bear.findById(req.params.bear_id, function(err, bear) {
+        // use our phone model to find the phone we want
+        Phone.findById(req.params.phone_id, function(err, phone) {
 
             if (err)
                 res.send(err);
 
-            bear.name = req.body.name;  // update the bears info
-            bear.quantity= req.body.quantity;
-            bear.price=req.body.price;
+            phone.name = req.body.name;  // update the phones info
+            phone.quantity= req.body.quantity;
+            phone.price=req.body.price;
+            phone.tax= req.body.price;
 
-            // save the bear
-            bear.save(function(err) {
+            // save the phone
+            phone.save(function(err) {
                 if (err)
                     res.send(err);
 
-                res.json({ message: 'Bear updated!' });
+                res.json({ message: 'phone updated!' });
             });
 
         });
     })
     
      .delete(function(req, res) {
-        Bear.remove({
-            _id: req.params.bear_id
-        }, function(err, bear) {
+        Phone.remove({
+            _id: req.params.phone_id
+        }, function(err, phone) {
             if (err)
                 res.send(err);
 
