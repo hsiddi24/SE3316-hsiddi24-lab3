@@ -1,0 +1,114 @@
+
+window.onload=function(){
+  function postData(url = ``, data = {}) {
+  // Default options are marked with *
+    return fetch(url, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        redirect: "follow", // manual, *follow, error
+        referrer: "no-referrer", // no-referrer, *client
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+    })
+    .then(response => response.json()); // parses response to JSON
+}
+
+    function pullData(url = ``, data = {}) {
+        // Default options are marked with *
+        return fetch(url, {
+            method: "PULL", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                // "Content-Type": "application/x-www-form-urlencoded",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrer: "no-referrer", // no-referrer, *client
+            body: JSON.stringify(data), // body data type must match "Content-Type" header
+        })
+            .then(response => response.json()); // parses response to JSON
+    }
+
+    
+
+
+      var myButton = document.getElementById('Add').addEventListener('click',
+
+            function(){
+           // console.log("Hello");
+                var NewName = document.getElementById('NewName').value.toString();
+                var NewPrice = parseFloat(document.getElementById('NewPrice').value);
+                var NewQuantity = parseFloat(document.getElementById('NewQuantity').value);
+                var NewTax = parseFloat(document.getElementById('NewTax').value);
+                var data = {
+                    name: String(NewName) ,
+                    price: Number(NewPrice),
+                    tax: Number(NewTax),
+                    quantity: Number(NewQuantity)
+                }
+
+                postData( '/api/phones', data);
+                alert(data.name + data.price.toString() + data.price.toString() + data.quantity.toString());
+            }
+
+
+
+        );
+
+    var UpdateName = document.getElementById('UpdateNameBtn').addEventListener('click', 
+    function(){
+      let ID = document.getElementById('UpdateNameID').value.toString();
+      let NewName = parseFloat(document.getElementById('UpdateName').value);
+    }
+    
+    
+    
+    );
+    
+    
+     var UpdatePrice = document.getElementById('UpdatePriceBtn').addEventListener('click', 
+    function(){
+      let ID = document.getElementById('UpdatePriceID').value.toString();
+      let NewPrice = parseFloat(document.getElementById('UpdatePrice').value);
+    }
+    
+    
+    
+    );
+    
+    
+     var UpdateQuantity = document.getElementById('UpdateQuantityBtn').addEventListener('click', 
+    function(){
+      let ID = document.getElementById('UpdateQuantityID').value.toString();
+      let NewQuantity = parseFloat(document.getElementById('UpdateQuantity').value);
+    }
+    
+    
+    
+    );
+    
+     var UpdateTax = document.getElementById('UpdateTaxBtn').addEventListener('click', 
+    function(){
+      let ID = document.getElementById('UpdateTaxID').value.toString();
+      let NewTax = parseFloat(document.getElementById('UpdateTax').value);
+    }
+    
+    
+    
+    )
+    
+
+
+
+
+
+
+
+        }

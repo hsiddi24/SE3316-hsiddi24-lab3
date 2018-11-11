@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var mangoose = require('mongoose');
 mangoose.connect('mongodb://localhost:27017/phones');
 var Phone = require ('./data/phone');
-
+app.use('/', express.static('static'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
