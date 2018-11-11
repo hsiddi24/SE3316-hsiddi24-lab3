@@ -54,6 +54,7 @@ router.route('/phones')
 router.route('/phones/:phone_id')
 
  .get(function(req, res) {
+     console.log("Mini Get");
         Phone.findById(req.params.phone_id, function(err, phone) {
             if (err)
                 res.send(err);
@@ -62,6 +63,7 @@ router.route('/phones/:phone_id')
     })
     
     .put(function(req, res) {
+        console.log("Put Execution");
 
         // use our phone model to find the phone we want
         Phone.findById(req.params.phone_id, function(err, phone) {
