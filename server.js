@@ -74,7 +74,7 @@ router.route('/phones/:phone_id')
             phone.name = req.body.name;  // update the phones info
             phone.quantity= req.body.quantity;
             phone.price=req.body.price;
-            phone.tax= req.body.price;
+            phone.tax= req.body.tax;
 
             // save the phone
             phone.save(function(err) {

@@ -124,6 +124,8 @@ var GetButton = document.getElementById('GetBtn').addEventListener('click',
         var GetID = document.getElementById('GetID').value;
         console.log("Function is Executed");
         let ThisURL= 'https://lab3hsiddi24-hsiddi24.c9users.io/api/phones/' + GetID.toString();
+        document.querySelector("div").innerHTML = '';
+        document.querySelector("div").innerHTML = "<p>" + "The Price One Must Pay" + "</p>";
 
         getData (ThisURL,
             function(data){
@@ -311,14 +313,20 @@ var GetButton = document.getElementById('GetBtn').addEventListener('click',
     
     
 
-function retrieveData(){
+function DisplayData(){
     getData('https://lab3hsiddi24-hsiddi24.c9users.io/api/phones', function(response){
         console.log(response)
-        document.querySelector("tbody").innerHTML = ""
+          document.querySelector("tbody").innerHTML = "<tr>" +
+                "<td>" +"phone._id" +"</td>"+
+                "<td>" +"phone.name" +"</td>"+
+                "<td>" +"phone.price" +"</td>"+
+                "<td>" + "phone.tax" +"</td>" +
+                "<td>" + "phone.quantity" +"</td>" +
+                + "</tr>"
 
-        let i=0;
+        
         response.forEach(function(phone){
-            i++;
+            
 
             document.querySelector("tbody").innerHTML += "<tr>" +
                 "<td>" +phone._id +"</td>"+
@@ -334,14 +342,14 @@ function retrieveData(){
 );
 }
 
-function refresh() {
-    retrieveData();
-    setTimeout(refresh, 2000);
+function PollData() {
+    DisplayData();
+    setTimeout(PollData, 2000);
     // ...
 }
 
-retrieveData();
-setTimeout(refresh, 2000);
+DisplayData();
+setTimeout(PollData, 2000);
 
 
 
