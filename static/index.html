@@ -6,6 +6,9 @@
         <script type="text/javascript"
                 src="script.js">
         </script>
+        
+      
+}
         </head>
     
     <body>
@@ -35,30 +38,31 @@
 
         <h3>Update Tax Entry: </h3>
         ID:<input type="text" id="UpdateTaxID">
-        Price:<input type="text" id="UpdateTax">
+        Tax:<input type="text" id="UpdateTax">
         <input type="submit" value="Update" id="UpdateTaxBtn"/>
 
         <h3>Delete: </h3>
-
-        <select id="DeleteDropDown">
-
-        </select>
+        DeleteID:<input type="text" id="DeleteID">
         <input type="submit" value="Delete" id="DeleteBtn"/>
 
         <h3>Get Values For (select ID Number) : </h3>
 
-        <select id="GetDropdown">
+      
 
-        </select>
+      
+        
 
-        <input type="submit" value="Get" id="GetBtn"/>
-
+        ID:<input type="text" id="GetID">
         Name:<input type="text" id="GetName">
         Price:<input type="text" id="GetPrice">
         Quantity:<input type="text" id="GetQuantity">
         Tax Rate:<input type="text" id="GetTax">
+          <input type="submit" value="Get" id="GetBtn"/>
     </input></form>
-    <table id=DisplayTable>
+    <table id=tbody>
+        <tbody class= "TableBorders">
+            
+        </tbody>
         
     </table>
         

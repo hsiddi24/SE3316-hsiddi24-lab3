@@ -1,4 +1,3 @@
-
 window.onload=function(){
   function postData(url = ``, data = {}) {
   // Default options are marked with *
@@ -36,7 +35,7 @@ window.onload=function(){
     .then(response => response.json()); // parses response to JSON
 }
 
-    function getData(url = ``,myCallBack) {
+   function getData(url = ``,myCallBack) {
   // Default options are marked with *
     return fetch(url, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -56,8 +55,29 @@ window.onload=function(){
     // you can access your data here
     myCallBack(data)
     }); // parses response to JSON
-}
+   }
+   
+   function deleteData(url = ``,myCallBack) {
+    // Default options are marked with *
+    return fetch(url, {
+        method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        redirect: "follow", // manual, *follow, error
+        referrer: "no-referrer" // body data type must match "Content-Type" header
+    })
 
+        .then(dataWrappedByPromise => dataWrappedByPromise.json())
+        .then(data => {
+            // you can access your data here
+            myCallBack(data)
+        }); // parses response to JSON
+}
    
       var myButton = document.getElementById('Add').addEventListener('click',
 
@@ -75,56 +95,76 @@ window.onload=function(){
                 }
 
                 postData( '/api/phones', data);
-                alert(data.name + data.price.toString() + data.price.toString() + data.quantity.toString());
+                
             }
 
 
 
         );
         
-         var GetButton = document.getElementById('GetBtn').addEventListener('click',
-        function(){
+       var DeleteButton = document.getElementById('DeleteBtn').addEventListener('click',
+    function(){
+        var deleteID = document.getElementById('DeleteID').value;
         console.log("Function is Executed");
+        let ThisURL= 'https://lab3hsiddi24-hsiddi24.c9users.io/api/phones/' + deleteID.toString();
 
-        getData ("https://lab3hsiddi24-hsiddi24.c9users.io/api/phones",
+        deleteData (ThisURL,
             function(data){
-                console.log(data);
-                //document.getElementById('UpdatePriceID').value= data.price;
-            data.forEach(function(phone){
-                console.log(phone.name);
-                console.log(phone.price);
-                console.log(phone.quantity);
-                console.log(phone.price);
-                console.log(phone._id);
-                }
-
-            );
             }
 
-            );
-        }
+
 
         );
+    }
+
+);
+
+var GetButton = document.getElementById('GetBtn').addEventListener('click',
+    function(){
+        var GetID = document.getElementById('GetID').value;
+        console.log("Function is Executed");
+        let ThisURL= 'https://lab3hsiddi24-hsiddi24.c9users.io/api/phones/' + GetID.toString();
+
+        getData (ThisURL,
+            function(data){
+            document.getElementById('GetName').value= data.name.toString();
+                document.getElementById('GetPrice').value= data.price.toString();
+                document.getElementById('GetTax').value= data.tax.toString();
+                document.getElementById('GetQuantity').value= data.quantity.toString();
+
+
+            }
+
+
+
+        );
+    }
+
+);
+ 
         
        
 
-    var UpdateName = document.getElementById('UpdateNameBtn').addEventListener('click', 
+  var UpdateName = document.getElementById('UpdateNameBtn').addEventListener('click', 
     function(){
-      let ID = document.getElementById('UpdateNameID').value.toString();
-      let NewName = document.getElementById('UpdateName').value;
-      let ThisUrl = 'https://lab3hsiddi24-hsiddi24.c9users.io/api/phones/' + ID.toString();
+      var ID = document.getElementById('UpdateNameID').value.toString();
+      var NewName = document.getElementById('UpdateName').value;
+      var ThisUrl = 'https://lab3hsiddi24-hsiddi24.c9users.io/api/phones/' + ID;
       var ThisUrl2= '/api/phones/' + ID.toString();
       var Cprice=0;
       var Cquantity=0;
       var Ctax=0;
-      
+      console.log("CHANGING NAME");
       getData (ThisUrl,
             function(data){
-              console.log(data.name);
+              console.log("GET FUNCTION");
                 //document.getElementById('UpdatePriceID').value= data.price;
             Cprice= data.price;
             Cquantity = data.quantity;
             Ctax=data.tax;
+            console.log(data.price);
+            console.log(data.quantity);
+            console.log(data.tax);
             
             let PutData = {
                     name: String(NewName) ,
@@ -148,10 +188,40 @@ window.onload=function(){
     );
     
     
-     var UpdatePrice = document.getElementById('UpdatePriceBtn').addEventListener('click', 
+        var UpdatePrice = document.getElementById('UpdatePriceBtn').addEventListener('click', 
     function(){
       let ID = document.getElementById('UpdatePriceID').value.toString();
-      let NewPrice = parseFloat(document.getElementById('UpdatePrice').value);
+      var NewPrice = parseFloat(document.getElementById('UpdatePrice').value);
+      let ThisUrl = 'https://lab3hsiddi24-hsiddi24.c9users.io/api/phones/' + ID.toString();
+      var ThisUrl2= '/api/phones/' + ID.toString();
+      var Cname='';
+      var Cquantity=0;
+      var Ctax=0;
+      console.log("CHANGING PRICE")
+      getData (ThisUrl,
+            function(data){
+                console.log("GET FUNCTION");
+              //console.log(data.name);
+                //document.getElementById('UpdatePriceID').value= data.price;
+            Cname= data.name;
+            Cquantity = data.quantity;
+            Ctax=data.tax;
+            
+            let PutData = {
+                    name: String(Cname) ,
+                    price: Number(NewPrice),
+                    tax: Number(Ctax),
+                    quantity: Number(Cquantity)
+                };
+                console.log(PutData.name);
+                console.log(PutData.price);
+                console.log(PutData.tax);
+                console.log(PutData.quantity);
+                putData(ThisUrl2, PutData);
+                
+            }
+            );
+      
     }
     
     
@@ -159,26 +229,119 @@ window.onload=function(){
     );
     
     
-     var UpdateQuantity = document.getElementById('UpdateQuantityBtn').addEventListener('click', 
+          var UpdateQuantity = document.getElementById('UpdateQuantityBtn').addEventListener('click', 
     function(){
       let ID = document.getElementById('UpdateQuantityID').value.toString();
-      let NewQuantity = parseFloat(document.getElementById('UpdateQuantity').value);
+      var NewQuantity = parseFloat(document.getElementById('UpdateQuantity').value);
+      let ThisUrl = 'https://lab3hsiddi24-hsiddi24.c9users.io/api/phones/' + ID.toString();
+      var ThisUrl2= '/api/phones/' + ID.toString();
+      var Cname='';
+      var Cprice=0;
+      var Ctax=0;
+      
+      getData (ThisUrl,
+            function(data){
+              console.log(data.name);
+                //document.getElementById('UpdatePriceID').value= data.price;
+            Cprice= data.price;
+            Cname = data.name;
+            Ctax=data.tax;
+            
+            let PutData = {
+                    name: String(Cname) ,
+                    price: Number(Cprice),
+                    tax: Number(Ctax),
+                    quantity: Number(NewQuantity)
+                };
+                console.log(PutData.name);
+                console.log(PutData.price);
+                console.log(PutData.tax);
+                console.log(PutData.quantity);
+                putData(ThisUrl2, PutData);
+                
+            }
+            );
+      
     }
     
     
     
     );
     
-     var UpdateTax = document.getElementById('UpdateTaxBtn').addEventListener('click', 
+        var UpdateTax = document.getElementById('UpdateTaxBtn').addEventListener('click', 
     function(){
       let ID = document.getElementById('UpdateTaxID').value.toString();
-      let NewTax = parseFloat(document.getElementById('UpdateTax').value);
+      var NewTax = parseFloat(document.getElementById('UpdateTax').value);
+      let ThisUrl = 'https://lab3hsiddi24-hsiddi24.c9users.io/api/phones/' + ID.toString();
+      var ThisUrl2= '/api/phones/' + ID.toString();
+      var Cname='';
+      var Cprice=0;
+      var Cquantity=0;
+      
+      getData (ThisUrl,
+            function(data){
+              console.log(data.name);
+                //document.getElementById('UpdatePriceID').value= data.price;
+            Cprice= data.price;
+            Cname = data.name;
+            Cquantity=data.quantity;
+            
+            let PutData = {
+                    name: String(Cname) ,
+                    price: Number(Cprice),
+                    tax: Number(NewTax),
+                    quantity: Number(Cquantity)
+                };
+                console.log(PutData.name);
+                console.log(PutData.price);
+                console.log(PutData.tax);
+                console.log(PutData.quantity);
+                putData(ThisUrl2, PutData);
+                
+            }
+            );
+      
     }
     
     
     
-    )
+    );
     
+    
+    
+    
+
+function retrieveData(){
+    getData('https://lab3hsiddi24-hsiddi24.c9users.io/api/phones', function(response){
+        console.log(response)
+        document.querySelector("tbody").innerHTML = ""
+
+        let i=0;
+        response.forEach(function(phone){
+            i++;
+
+            document.querySelector("tbody").innerHTML += "<tr>" +
+                "<td>" +phone._id +"</td>"+
+                "<td>" +phone.name +"</td>"+
+                "<td>" +phone.price +"</td>"+
+                "<td>" + phone.tax +"</td>" +
+                "<td>" + phone.quantity +"</td>" +
+                + "</tr>"
+
+        })
+    }
+
+);
+}
+
+function refresh() {
+    retrieveData();
+    setTimeout(refresh, 2000);
+    // ...
+}
+
+retrieveData();
+setTimeout(refresh, 2000);
 
 
 
@@ -187,3 +350,4 @@ window.onload=function(){
 
 
         }
+        
