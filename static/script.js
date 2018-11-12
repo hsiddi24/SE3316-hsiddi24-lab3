@@ -1,82 +1,82 @@
 window.onload=function(){
   function postData(url = ``, data = {}) {
-  // Default options are marked with *
+  //
     return fetch(url, {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, cors, *same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
+        method: "POST", // 
+        mode: "cors", // 
+        cache: "no-cache", // 
+        credentials: "same-origin", 
         headers: {
             "Content-Type": "application/json; charset=utf-8",
-            // "Content-Type": "application/x-www-form-urlencoded",
+            
         },
-        redirect: "follow", // manual, *follow, error
-        referrer: "no-referrer", // no-referrer, *client
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
+        redirect: "follow", // 
+        referrer: "no-referrer", // 
+        body: JSON.stringify(data), // 
     })
-    .then(response => response.json()); // parses response to JSON
+    .then(response => response.json()); //
 }
 
     function putData(url = ``, data = {}) {
-  // Default options are marked with *
+  //
     return fetch(url, {
-        method: "PUT", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, cors, *same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
+        method: "PUT", // 
+        mode: "cors", // 
+        cache: "no-cache", // *
+        credentials: "same-origin", 
         headers: {
             "Content-Type": "application/json; charset=utf-8",
-            // "Content-Type": "application/x-www-form-urlencoded",
+            
         },
-        redirect: "follow", // manual, *follow, error
-        referrer: "no-referrer", // no-referrer, *client
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
+        redirect: "follow", // 
+        referrer: "no-referrer", // 
+        body: JSON.stringify(data), // 
     })
-    .then(response => response.json()); // parses response to JSON
+    .then(response => response.json()); //
 }
 
    function getData(url = ``,myCallBack) {
-  // Default options are marked with *
+  //
     return fetch(url, {
-        method: "GET", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, cors, *same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
+        method: "GET", // 
+        mode: "cors", // 
+        cache: "no-cache", // *
+        credentials: "same-origin", 
         headers: {
             "Content-Type": "application/json; charset=utf-8",
-            // "Content-Type": "application/x-www-form-urlencoded",
+            
         },
-        redirect: "follow", // manual, *follow, error
-        referrer: "no-referrer" // body data type must match "Content-Type" header
+        redirect: "follow", // 
+        referrer: "no-referrer" // 
     })
     
     .then(dataWrappedByPromise => dataWrappedByPromise.json())
     .then(data => {
-    // you can access your data here
+    // 
     myCallBack(data)
-    }); // parses response to JSON
+    }); //
    }
    
    function deleteData(url = ``,myCallBack) {
-    // Default options are marked with *
+    //
     return fetch(url, {
-        method: "DELETE", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, cors, *same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
+        method: "DELETE", // 
+        mode: "cors", // 
+        cache: "no-cache", // *
+        credentials: "same-origin", 
         headers: {
             "Content-Type": "application/json; charset=utf-8",
-            // "Content-Type": "application/x-www-form-urlencoded",
+            
         },
-        redirect: "follow", // manual, *follow, error
-        referrer: "no-referrer" // body data type must match "Content-Type" header
+        redirect: "follow", // 
+        referrer: "no-referrer" // 
     })
 
         .then(dataWrappedByPromise => dataWrappedByPromise.json())
         .then(data => {
-            // you can access your data here
+            // 
             myCallBack(data)
-        }); // parses response to JSON
+        }); //
 }
    
       var myButton = document.getElementById('Add').addEventListener('click',
@@ -342,7 +342,7 @@ function DisplayData(){
 );
 }
 
-function PollData() {
+function PollData() { //data polled every 2 seconds 
     DisplayData();
     setTimeout(PollData, 2000);
     // ...
